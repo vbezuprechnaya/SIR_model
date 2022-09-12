@@ -11,7 +11,7 @@ int main() {
 
 
     double s = states[states.size() - 1].S + states[states.size() - 1].I + states[states.size() - 1].R;
-    double appr_alpha = 0.003, appr_beta = 0.45;
+    double appr_alpha = 0.003, appr_beta = 0.4485;
     GaussNewton Optimizer(states, init, appr_alpha, appr_beta);
     Optimizer.Approximate(100);
     return 0;

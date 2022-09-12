@@ -46,7 +46,8 @@ void GaussNewton::Approximate(int cnt_iter){
         step++;
         for (int i = 1; i < this->data.size(); i++){
             Matrix J  = this->CalculateJacobian();
-            Params = Params + ((J.T() * J).Inv() * J.T()) * LossFuncAll(this->data, this->actual_predict);
+            Matrix Delta = ((J.T() * J).Inv() * J.T()) * LossFuncAll(this->data, this->actual_predict) * (-1);
+            Params(0, 0) = Params(0, 0) + Delta(0, 0);
             std::cout << Params(0, 0) << "  " << Params(1, 0) << "\n";
         }
     }
@@ -55,7 +56,7 @@ void GaussNewton::Approximate(int cnt_iter){
 Matrix GaussNewton::CalculateJacobian() {
     Matrix J(this->data.size() * 3, 2);
     int population = (int)(this->data[0].S + this->data[0].I + this->data[0].R);
-    double step = 10e-2;
+    double step = 10e-3;
     int time = (int)(std::floor(this->data.size() * sir::TIME_STEP) + 1);
     sir::SIR Model(population, time, this->init,
                    this->appr_alpha, this->appr_beta);
