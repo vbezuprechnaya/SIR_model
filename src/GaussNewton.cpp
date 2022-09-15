@@ -39,17 +39,31 @@ std::pair<double, double> GaussNewton::GetParameters(){
 
 void GaussNewton::Approximate(int cnt_iter){
     int step = 0;
-//    Matrix Params(2, 1);
-//    Params(0, 0) = appr_alpha, Params(1, 0) = appr_beta;
+    Matrix Params(2, 1);
+    Params(0, 0) = appr_alpha, Params(1, 0) = appr_beta;
 
     while (step < cnt_iter){
         step++;
         for (int i = 1; i < this->data.size(); i++){
             Matrix J  = this->CalculateJacobian();
-            Matrix Delta = ((J.T() * J).Inv() * J.T()) * LossFuncAll(this->data, this->actual_predict)*(-1);
-            this->appr_alpha+= Delta(0,0);
-            this->appr_beta+= Delta(1,0);
-            std::cout << this->appr_alpha << "  " << this->appr_beta << "\n";
+            Matrix some = (J * J.T());
+            Matrix CheckInv = some * some.Inv();
+            for (int i = 0; i < CheckInv.Size().first; i++){
+//                for (int j = 0; j < CheckInv.Size().second; j++){
+//                    if ((i == j) && (CheckInv(i,j) != 1)){
+//                        std::cout << "GBPLTW";
+//                    }
+//                    if ((i != j) && (CheckInv(i, j) != 0)){
+//                        std::cout << "23tyui8765434567";
+//                    }
+//                }
+                if ((CheckInv(i,i) != 1)){
+                        std::cout << "GBPLTW";
+                    }
+            }
+            Matrix Delta = ((J.T() * J).Inv() * J.T()) * LossFuncAll(this->data, this->actual_predict) * (-1);
+            Params(0, 0) = Params(0, 0) + Delta(0, 0);
+            std::cout << Params(0, 0) << "  " << Params(1, 0) << "\n";
         }
     }
 }
