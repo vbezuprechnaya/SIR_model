@@ -51,14 +51,14 @@ void GaussNewton::Approximate(int cnt_iter){
             for (int i = 0; i < CheckInv.Size().first; i++){
 //                for (int j = 0; j < CheckInv.Size().second; j++){
 //                    if ((i == j) && (CheckInv(i,j) != 1)){
-//                        std::cout << "GBPLTW";
+//                        std::cout << "Joke";
 //                    }
 //                    if ((i != j) && (CheckInv(i, j) != 0)){
 //                        std::cout << "23tyui8765434567";
 //                    }
 //                }
                 if ((CheckInv(i,i) != 1)){
-                        std::cout << "GBPLTW";
+                        std::cout << "Joke2";
                     }
             }
             Matrix Delta = ((J.T() * J).Inv() * J.T()) * LossFuncAll(this->data, this->actual_predict) * (-1);
