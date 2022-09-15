@@ -7,7 +7,7 @@
 namespace sir
 {
 
-double constexpr TIME_STEP = 0.0001; // days
+double constexpr TIME_STEP = 0.01; // days
 
 struct State
 {
