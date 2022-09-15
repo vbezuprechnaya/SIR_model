@@ -213,7 +213,7 @@ Matrix Matrix::Inv() {
         }
     }
 
-    solution = solution.Cofactor().T();
+    solution = solution.T().Cofactor();
 
     for(int i = 0; i < this->Size().first; i++) {
         for(int j = 0; j < this->Size().second; j++) {
